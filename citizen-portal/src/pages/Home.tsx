@@ -23,13 +23,12 @@ export default function Home() {
           </div>
         </div>
         
-        <h1 className="text-5xl md:text-6xl font-black tracking-tight uppercase text-black drop-shadow-[2px_2px_0px_white]">
-          AI Emergency <span className="text-primary underline decoration-4 underline-offset-4">Response</span>
+        <h1 className="text-6xl md:text-8xl font-black tracking-tight uppercase text-black drop-shadow-[4px_4px_0px_white]">
+          AEGIS
         </h1>
         
-        <p className="text-lg md:text-xl font-bold text-black bg-white/80 p-4 border-4 border-black rounded-lg inline-block shadow-[4px_4px_0px_black]">
-          Instant connection to the autonomous AI dispatch system. 
-          <br/>Report medical emergencies securely and get help faster.
+        <p className="text-lg md:text-xl font-bold tracking-widest text-black bg-white/80 p-4 border-4 border-black rounded-sm inline-block shadow-[4px_4px_0px_black] uppercase -rotate-2 mt-4">
+          Under the surveillance
         </p>
 
         <div className="pt-8 flex justify-center">
