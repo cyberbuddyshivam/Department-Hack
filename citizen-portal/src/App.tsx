@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import EmergencyRequest from './pages/EmergencyRequest';
 import RequestStatus from './pages/RequestStatus';
 import AmbulanceTracking from './pages/AmbulanceTracking';
+import CallEmergency from './pages/CallEmergency';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/request" element={<EmergencyRequest />} />
+          <Route path="/call" element={<CallEmergency />} />
           <Route path="/status/:id" element={<RequestStatus />} />
           <Route path="/tracking/:id" element={<AmbulanceTracking />} />
         </Routes>

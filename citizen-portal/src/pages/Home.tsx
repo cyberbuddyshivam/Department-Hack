@@ -31,13 +31,21 @@ export default function Home() {
           Under the surveillance
         </p>
 
-        <div className="pt-8 flex justify-center">
+        <div className="pt-8 flex flex-col md:flex-row justify-center gap-4">
           <button
             onClick={() => navigate('/request')}
             className="neu-btn px-8 py-4 flex items-center justify-center text-lg gap-2 cursor-pointer w-full md:w-auto"
           >
             <Activity className="w-6 h-6 animate-pulse" />
-            REPORT EMERGENCY NOW
+            REPORT ONLINE
+          </button>
+          
+          <button
+            onClick={() => navigate('/call')}
+            className="neu-btn px-8 py-4 flex items-center justify-center text-lg gap-2 cursor-pointer w-full md:w-auto bg-[#ff477e] text-white hover:bg-[#e03566]"
+          >
+            <Phone className="w-6 h-6" />
+            DIAL AEGIS AI
           </button>
         </div>
 

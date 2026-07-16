@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, Activity, ArrowRight, BrainCircuit, MapPin, Truck, Stethoscope, MessageSquare, Loader2, Navigation, ShieldAlert } from 'lucide-react';
 
@@ -12,6 +12,7 @@ interface LogEntry {
 
 export default function RequestStatus() {
   const { id } = useParams();
+  const location = useLocation();
   const [step, setStep] = useState(0);
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const logsEndRef = useRef<HTMLDivElement>(null);
@@ -23,7 +24,8 @@ export default function RequestStatus() {
   useEffect(() => {
     const simulationSequence = async () => {
       // User Input Phase
-      addLog('User', 'Agent 1', 'EMERGENCY: "My father collapsed, he is not breathing properly." Location: [34.05, -118.24]', 'bg-white');
+      const userInput = location.state?.userInput || '"My father collapsed, he is not breathing properly." Location: [34.05, -118.24]';
+      addLog('User', 'Agent 1', `EMERGENCY LOG: ${userInput}`, 'bg-white');
       
       await delay(2000);
       setStep(1); // Agent 1 Processing
@@ -53,6 +55,7 @@ export default function RequestStatus() {
     };
 
     simulationSequence();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
@@ -87,8 +90,7 @@ export default function RequestStatus() {
           Initial User Input
         </div>
         <p className="font-bold text-lg p-3 bg-gray-100 border-2 border-black shadow-[2px_2px_0px_black]">
-          "My father collapsed, he is not breathing properly." <br/>
-          <span className="text-sm font-medium text-gray-600">Location: Lat 34.0522, Lng -118.2437</span>
+          {location.state?.userInput || '"My father collapsed, he is not breathing properly." \nLocation: Lat 34.0522, Lng -118.2437'}
         </p>
       </div>
 

@@ -185,8 +185,8 @@ export default function EmergencyRequest() {
         location: locationCoords
       });
       
-      const eventId = response.data.event_id;
-      navigate(`/status/${eventId}`);
+      const eventId = response.data.event_id || 'REQ-911';
+      navigate(`/status/${eventId}`, { state: { userInput: finalDetails } });
     } catch (error) {
       console.error("Failed to submit", error);
       alert("Failed to submit emergency request. Ensure backend is running.");
