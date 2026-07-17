@@ -17,60 +17,58 @@ export default function RequestStatus() {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const logsEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    logsEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [logs]);
+  // Removed auto-scroll so user can read agent traces at their own pace
+
+  const [agentTrace, setAgentTrace] = useState<any[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [finalData, setFinalData] = useState<any>(null);
 
   useEffect(() => {
-    const simulationSequence = async () => {
-      // User Input Phase
-      const userInput = location.state?.userInput || '"My father collapsed, he is not breathing properly." Location: [34.05, -118.24]';
-      addLog('User', 'Agent 1', `EMERGENCY LOG: ${userInput}`, 'bg-white');
-      
-      await delay(2000);
-      setStep(1); // Agent 1 Processing
-      await delay(3000);
-      addLog('Agent 1', 'Agent 2', 'Identified 3 nearby facilities: City Gen (2km), Mercy Med (3km), Care Point (3.5km).', 'bg-[#fdf0d5]');
-      
-      setStep(2); // Agent 2 Processing
-      await delay(3000);
-      addLog('Agent 2', 'Agent 3', 'Traffic heavy on I-5. Mercy Med route clear. ETA: 6 mins. Selected Mercy Med.', 'bg-[#ffc2d1]');
-      
-      setStep(3); // Agent 3 Processing
-      await delay(2000);
-      addLog('Agent 3', 'Mercy Med', 'CRITICAL ALERT: Incoming trauma patient. Requesting immediate bed.', 'bg-[#ccfbf1]');
-      await delay(2000);
-      addLog('Mercy Med', 'Agent 3', 'Bed confirmed. Trauma team on standby.', 'bg-white');
-      
-      setStep(4); // Agent 4 Processing
-      await delay(2000);
-      addLog('Agent 3', 'Agent 4', 'Ambulance dispatched. Initiate live surveillance and tracking.', 'bg-[#e2ece9]');
-      
-      setStep(5); // Agent 5 Processing
-      await delay(2000);
-      addLog('Agent 4', 'Agent 5', 'Ambulance is en route. Connect to patient for medical guidance.', 'bg-[#e2ece9]');
-      await delay(2000);
-      addLog('Agent 5', 'User', 'Hello, I am your Medical Guide. The ambulance is 5 mins away. Please keep the patient flat and check breathing.', 'bg-[#fcd5ce]');
-      setStep(6); // All Done
+    let interval: ReturnType<typeof setInterval>;
+    const fetchTrace = async () => {
+      try {
+        const res = await fetch(`http://localhost:8000/tracking/${id}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.agent_trace) {
+            setAgentTrace(data.agent_trace);
+            
+            const newLogs: LogEntry[] = data.agent_trace.map((agent: any) => ({
+                 sender: agent.agent_name,
+                 receiver: 'System',
+                 message: agent.reasoning || JSON.stringify(agent.result),
+                 color: 'bg-white'
+            }));
+            setLogs(newLogs);
+          }
+          if (data.status === "completed") {
+            setFinalData(data);
+            setStep(6);
+            setIsLoaded(true);
+            if (interval) clearInterval(interval);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch trace", err);
+      }
     };
+    
+    fetchTrace();
+    interval = setInterval(fetchTrace, 2000);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [id]);
 
-    simulationSequence();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const agents = agentTrace.map((agent: any, idx: number) => ({
+    id: idx + 1,
+    name: agent.agent_name,
+    icon: BrainCircuit,
+    color: "bg-[#e2ece9]",
+    task: `Analyzed`,
+    output: `Thought for ${(agent.latency_ms / 1000).toFixed(1)}s`
+  }));
 
-  const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
-
-  const addLog = (sender: string, receiver: string, message: string, color: string) => {
-    setLogs(prev => [...prev, { sender, receiver, message, color }]);
-  };
-
-  const agents = [
-    { id: 1, name: "Hospital Locator", icon: MapPin, color: "bg-[#fdf0d5]", task: "Find nearest hospitals", output: "Found: City Gen, Mercy Med, Care Point." },
-    { id: 2, name: "Traffic Analyzer", icon: Navigation, color: "bg-[#ffc2d1]", task: "Check traffic & find fastest route", output: "Selected: Mercy Med (Fastest ETA 6m)." },
-    { id: 3, name: "Hospital Coordinator", icon: ShieldAlert, color: "bg-[#ccfbf1]", task: "Alert facility & book bed", output: "Bed confirmed at Mercy Med." },
-    { id: 4, name: "Surveillance", icon: Truck, color: "bg-[#e2ece9]", task: "Track ambulance route", output: "Ambulance dispatched & tracked." },
-    { id: 5, name: "Medical Guide", icon: Stethoscope, color: "bg-[#fcd5ce]", task: "Provide interim guidance", output: "Assisting patient on site." }
-  ];
 
   return (
     <div className="flex-1 flex flex-col p-4 md:p-8 max-w-6xl mx-auto w-full gap-6">
@@ -96,38 +94,35 @@ export default function RequestStatus() {
 
       {/* Agent Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {agents.map((agent) => {
-          const isPending = step < agent.id;
-          const isProcessing = step === agent.id;
-          const isCompleted = step > agent.id;
+        {agents.length > 0 ? agents.map((agent: any) => {
           const Icon = agent.icon;
-
           return (
             <div 
-              key={agent.id} 
-              className={`neu-box flex flex-col overflow-hidden transition-opacity duration-500 ${isPending ? 'opacity-40 grayscale' : 'opacity-100'}`}
+              key={agent.name} 
+              className={`neu-box flex flex-col overflow-hidden transition-opacity duration-500 opacity-100`}
             >
               <div className={`p-3 border-b-4 border-black flex items-center justify-between ${agent.color}`}>
                 <span className="font-black text-sm uppercase truncate pr-2">{agent.name}</span>
                 <Icon className="w-5 h-5 flex-shrink-0" />
               </div>
               <div className="p-3 flex-1 flex flex-col bg-white">
-                <p className="font-bold text-xs text-gray-600 mb-2 uppercase border-b-2 border-black pb-1">Task: {agent.task}</p>
-                
                 <div className="mt-auto pt-2 flex items-center gap-2 font-bold text-sm">
-                  {isPending && <span className="text-gray-400">Waiting...</span>}
-                  {isProcessing && <><Loader2 className="w-4 h-4 animate-spin text-blue-600" /> <span className="text-blue-600">Processing...</span></>}
-                  {isCompleted && (
-                    <div className="flex flex-col gap-1 w-full">
-                      <div className="flex items-center gap-1 text-green-600"><CheckCircle2 className="w-4 h-4" /> Done</div>
-                      <p className="text-xs bg-gray-100 p-1 border-2 border-black">{agent.output}</p>
-                    </div>
-                  )}
+                  <div className="flex flex-col gap-1 w-full">
+                    <div className="flex items-center gap-1 text-green-600"><CheckCircle2 className="w-4 h-4" /> {agent.task}</div>
+                    <p className="text-xs bg-gray-100 p-1 border-2 border-black">{agent.output}</p>
+                  </div>
                 </div>
               </div>
             </div>
           );
-        })}
+        }) : null}
+        
+        {!isLoaded && (
+          <div className="col-span-full neu-box p-6 flex flex-col items-center justify-center bg-[#fdf0d5] border-dashed border-4 border-black">
+             <Loader2 className="w-8 h-8 animate-spin mb-2" />
+             <p className="font-bold uppercase">Agent is thinking...</p>
+          </div>
+        )}
       </div>
 
       {/* Live Agent Chatbot Output */}
@@ -164,10 +159,16 @@ export default function RequestStatus() {
           </AnimatePresence>
           <div ref={logsEndRef} />
           
-          {step < 6 && (
+          {logs.length === 0 && !isLoaded && (
             <div className="flex items-center gap-2 font-bold text-sm text-gray-500 animate-pulse mt-4 self-start">
-              <Activity className="w-4 h-4" /> Agents communicating...
+              <Activity className="w-4 h-4" /> Fetching live reasoning from agents...
             </div>
+          )}
+          
+          {!isLoaded && logs.length > 0 && (
+             <div className="flex items-center gap-2 font-bold text-sm text-blue-500 animate-pulse mt-4 self-start">
+               <Activity className="w-4 h-4" /> Agent is analyzing next step...
+             </div>
           )}
         </div>
         
@@ -185,15 +186,46 @@ export default function RequestStatus() {
         </div>
       </div>
 
+      {isLoaded && finalData?.map_data && (
+        <div className="neu-box p-6 bg-[#ccfbf1] mt-4">
+          <h3 className="text-xl font-black border-b-4 border-black pb-2 mb-4 uppercase flex items-center gap-2"><MapPin className="w-6 h-6" /> Final Dispatch Verdict</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white p-3 border-2 border-black">
+              <p className="font-black text-sm uppercase text-gray-500">Incident Location</p>
+              <p className="font-bold">Lat: {finalData.map_data.incident_location.lat.toFixed(4)}</p>
+              <p className="font-bold">Lng: {finalData.map_data.incident_location.lng.toFixed(4)}</p>
+            </div>
+            <div className="bg-white p-3 border-2 border-black">
+              <p className="font-black text-sm uppercase text-gray-500">Ambulance ({finalData.map_data.ambulance.id})</p>
+              <p className="font-bold">Lat: {finalData.map_data.ambulance.current_location.lat.toFixed(4)}</p>
+              <p className="font-bold">Lng: {finalData.map_data.ambulance.current_location.lng.toFixed(4)}</p>
+              <p className="font-bold text-[#ff477e]">ETA: {finalData.map_data.ambulance.eta_to_incident_minutes ?? '--'} mins</p>
+            </div>
+            <div className="bg-white p-3 border-2 border-black">
+              <p className="font-black text-sm uppercase text-gray-500">Hospital ({finalData.map_data.hospital.id})</p>
+              <p className="font-bold">Lat: {finalData.map_data.hospital.location.lat.toFixed(4)}</p>
+              <p className="font-bold">Lng: {finalData.map_data.hospital.location.lng.toFixed(4)}</p>
+              <p className="font-bold">Dist: {finalData.map_data.hospital.distance_from_incident_km ?? '--'} km</p>
+            </div>
+          </div>
+          {finalData.brief && (
+            <div className="mt-4 bg-white p-3 border-2 border-black">
+               <p className="font-black text-sm uppercase text-gray-500 mb-1">Agent Action Brief</p>
+               <p className="font-bold text-sm">{finalData.brief}</p>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="flex justify-center mt-2">
-        {step >= 6 ? (
+        {isLoaded ? (
           <Link to={`/tracking/${id || 'SIM-8842'}`} className="neu-btn px-8 py-4 flex items-center gap-2 bg-[#2dd4bf] text-black text-xl hover:translate-y-[2px] hover:translate-x-[2px]">
              PROCEED TO LIVE TRACKING <ArrowRight className="w-6 h-6" />
           </Link>
         ) : (
-          <Link to="/" className="neu-btn px-6 py-3 flex items-center gap-2 opacity-50 pointer-events-none bg-gray-200">
+          <div className="neu-btn px-6 py-3 flex items-center gap-2 opacity-50 pointer-events-none bg-gray-200">
              WAITING FOR AGENTS...
-          </Link>
+          </div>
         )}
       </div>
 

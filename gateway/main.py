@@ -1,9 +1,9 @@
-from fastapi import FastAPI, HTTPException, Form, File, UploadFile
+from fastapi import FastAPI, HTTPException, Form, File, UploadFile, BackgroundTasks
 import tempfile
 import os
 from fastapi.middleware.cors import CORSMiddleware
 from models.event import StandardEmergencyEvent
-from dispatcher.agent_api import dispatcher
+from dispatcher.agent_api import dispatcher, TRACKING_RESULTS
 from adapters.web.adapter import WebRequestPayload, web_adapter_instance
 import utils.logger
 
@@ -25,19 +25,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/tracking/{event_id}", tags=["Core"])
+async def get_tracking_data(event_id: str):
+    """
+    Returns the final output produced by the multi-agent system for a given incident.
+    """
+    if event_id not in TRACKING_RESULTS:
+        return {"status": "processing", "agent_trace": [], "map_data": None}
+    return TRACKING_RESULTS[event_id]
+
 @app.post("/emergency", response_model=dict, tags=["Core"])
-async def receive_standard_emergency(event: StandardEmergencyEvent):
+async def receive_standard_emergency(event: StandardEmergencyEvent, background_tasks: BackgroundTasks):
     """
     The single endpoint where ALL adapters eventually send their normalized data.
     It forwards the StandardEmergencyEvent to the downstream multi-agent system.
     """
-    success = dispatcher.dispatch(event)
-    if not success:
-        raise HTTPException(status_code=500, detail="Failed to dispatch to agent system")
+    background_tasks.add_task(dispatcher.dispatch, event)
     return {"status": "success", "message": "Event dispatched to multi-agent system", "event_id": event.id}
 
 @app.post("/adapters/web", tags=["Adapters"])
-async def handle_web_request(payload: WebRequestPayload):
+async def handle_web_request(payload: WebRequestPayload, background_tasks: BackgroundTasks):
     """
     Phase 2: Web Adapter Endpoint.
     Receives raw web request, normalizes it, and sends to the standard /emergency pipeline.
@@ -45,9 +52,7 @@ async def handle_web_request(payload: WebRequestPayload):
     standard_event = web_adapter_instance.receive_and_normalize(payload)
     
     # Forward to the central endpoint logic
-    success = dispatcher.dispatch(standard_event)
-    if not success:
-        raise HTTPException(status_code=500, detail="Failed to dispatch to agent system")
+    background_tasks.add_task(dispatcher.dispatch, standard_event)
         
     return {"status": "success", "event_id": standard_event.id}
 
