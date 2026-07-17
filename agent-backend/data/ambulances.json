@@ -1,0 +1,170 @@
+[
+  {
+    "id": "amb_mum_001",
+    "type": "ALS",
+    "lat": 19.0120,
+    "lng": 72.8450,
+    "status": "dispatched",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator"
+    ]
+  },
+  {
+    "id": "amb_mum_002",
+    "type": "BLS",
+    "lat": 19.0400,
+    "lng": 72.8550,
+    "status": "available",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter"
+    ]
+  },
+  {
+    "id": "amb_mum_003",
+    "type": "trauma",
+    "lat": 19.1200,
+    "lng": 72.8350,
+    "status": "available",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator",
+      "blood_products", "thoracic_decompression_kit", "tourniquet_set", "trauma_dressings"
+    ]
+  },
+  {
+    "id": "amb_mum_004",
+    "type": "neonatal",
+    "lat": 19.0550,
+    "lng": 72.8300,
+    "status": "available",
+    "equipment": [
+      "stretcher", "oxygen", "pulse_oximeter",
+      "neonatal_incubator", "neonatal_ventilator", "neonatal_monitor",
+      "umbilical_catheter_kit", "neonatal_iv_access", "surfactant"
+    ]
+  },
+  {
+    "id": "amb_mum_005",
+    "type": "ALS",
+    "lat": 18.9800,
+    "lng": 72.8250,
+    "status": "dispatched",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator"
+    ]
+  },
+  {
+    "id": "amb_mum_006",
+    "type": "BLS",
+    "lat": 19.0300,
+    "lng": 72.8400,
+    "status": "dispatched",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter"
+    ]
+  },
+  {
+    "id": "amb_tha_007",
+    "type": "trauma",
+    "lat": 19.2000,
+    "lng": 72.9600,
+    "status": "available",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator",
+      "blood_products", "thoracic_decompression_kit", "tourniquet_set", "trauma_dressings"
+    ]
+  },
+  {
+    "id": "amb_tha_008",
+    "type": "ALS",
+    "lat": 19.1950,
+    "lng": 72.9750,
+    "status": "dispatched",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator"
+    ]
+  },
+  {
+    "id": "amb_pun_009",
+    "type": "ALS",
+    "lat": 18.5200,
+    "lng": 73.8600,
+    "status": "dispatched",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator"
+    ]
+  },
+  {
+    "id": "amb_pun_010",
+    "type": "trauma",
+    "lat": 18.5350,
+    "lng": 73.8850,
+    "status": "available",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator",
+      "blood_products", "thoracic_decompression_kit", "tourniquet_set", "trauma_dressings"
+    ]
+  },
+  {
+    "id": "amb_pun_011",
+    "type": "neonatal",
+    "lat": 18.5100,
+    "lng": 73.8300,
+    "status": "available",
+    "equipment": [
+      "stretcher", "oxygen", "pulse_oximeter",
+      "neonatal_incubator", "neonatal_ventilator", "neonatal_monitor",
+      "umbilical_catheter_kit", "neonatal_iv_access", "surfactant"
+    ]
+  },
+  {
+    "id": "amb_pun_012",
+    "type": "BLS",
+    "lat": 18.5400,
+    "lng": 73.8700,
+    "status": "maintenance",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter"
+    ]
+  },
+  {
+    "id": "amb_nsk_013",
+    "type": "ALS",
+    "lat": 19.9900,
+    "lng": 73.7800,
+    "status": "dispatched",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator"
+    ]
+  },
+  {
+    "id": "amb_mum_014",
+    "type": "trauma",
+    "lat": 19.0450,
+    "lng": 72.8250,
+    "status": "available",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator",
+      "blood_products", "thoracic_decompression_kit", "tourniquet_set", "trauma_dressings"
+    ]
+  },
+  {
+    "id": "amb_mum_015",
+    "type": "ALS",
+    "lat": 19.1250,
+    "lng": 72.8200,
+    "status": "dispatched",
+    "equipment": [
+      "stretcher", "oxygen", "aed", "basic_first_aid", "splints", "pulse_oximeter",
+      "cardiac_monitor", "iv_access", "epinephrine", "intubation_kit", "12_lead_ecg", "ventilator"
+    ]
+  }
+]

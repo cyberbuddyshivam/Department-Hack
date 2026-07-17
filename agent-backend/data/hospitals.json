@@ -1,0 +1,338 @@
+[
+  {
+    "id": "hosp_mum_kem",
+    "name": "KEM Hospital",
+    "lat": 19.0033,
+    "lng": 72.8413,
+    "specialties": [
+      "trauma_surgery",
+      "cardiology",
+      "general_emergency",
+      "neurology"
+    ],
+    "beds": {
+      "icu": {
+        "total": 150,
+        "available": 10
+      },
+      "emergency": {
+        "total": 50,
+        "available": 50
+      },
+      "general": {
+        "total": 1500,
+        "available": 100
+      },
+      "pediatric": {
+        "total": 100,
+        "available": 25
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": true,
+    "has_cath_lab": true,
+    "has_blood_bank": true
+  },
+  {
+    "id": "hosp_mum_lilavati",
+    "name": "Lilavati Hospital",
+    "lat": 19.0503,
+    "lng": 72.8288,
+    "specialties": [
+      "cardiology",
+      "orthopedics",
+      "general_emergency"
+    ],
+    "beds": {
+      "icu": {
+        "total": 60,
+        "available": 4
+      },
+      "emergency": {
+        "total": 20,
+        "available": 20
+      },
+      "general": {
+        "total": 200,
+        "available": 30
+      },
+      "pediatric": {
+        "total": 43,
+        "available": 8
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": false,
+    "has_cath_lab": true,
+    "has_blood_bank": true
+  },
+  {
+    "id": "hosp_mum_kokilaben",
+    "name": "Kokilaben Dhirubhai Ambani Hospital",
+    "lat": 19.1311,
+    "lng": 72.8252,
+    "specialties": [
+      "pediatrics",
+      "neonatal_icu",
+      "general_emergency",
+      "cardiology",
+      "neurology",
+      "burns"
+    ],
+    "beds": {
+      "icu": {
+        "total": 130,
+        "available": 15
+      },
+      "emergency": {
+        "total": 40,
+        "available": 40
+      },
+      "general": {
+        "total": 500,
+        "available": 45
+      },
+      "pediatric": {
+        "total": 80,
+        "available": 14
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": true,
+    "has_cath_lab": true,
+    "has_blood_bank": true
+  },
+  {
+    "id": "hosp_mum_sion",
+    "name": "Sion Hospital",
+    "lat": 19.0371,
+    "lng": 72.8617,
+    "specialties": [
+      "trauma_surgery",
+      "toxicology",
+      "general_emergency"
+    ],
+    "beds": {
+      "icu": {
+        "total": 100,
+        "available": 5
+      },
+      "emergency": {
+        "total": 50,
+        "available": 50
+      },
+      "general": {
+        "total": 1150,
+        "available": 75
+      },
+      "pediatric": {
+        "total": 100,
+        "available": 5
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": true,
+    "has_cath_lab": false,
+    "has_blood_bank": true
+  },
+  {
+    "id": "hosp_mum_nair",
+    "name": "Nair Hospital",
+    "lat": 18.9744,
+    "lng": 72.8223,
+    "specialties": [
+      "general_emergency",
+      "orthopedics",
+      "obstetrics"
+    ],
+    "beds": {
+      "icu": {
+        "total": 120,
+        "available": 8
+      },
+      "emergency": {
+        "total": 40,
+        "available": 40
+      },
+      "general": {
+        "total": 1000,
+        "available": 80
+      },
+      "pediatric": {
+        "total": 140,
+        "available": 16
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": false,
+    "has_cath_lab": false,
+    "has_blood_bank": true
+  },
+  {
+    "id": "hosp_mum_hinduja",
+    "name": "Hinduja Hospital",
+    "lat": 19.0326,
+    "lng": 72.8385,
+    "specialties": [
+      "neurology",
+      "cardiology",
+      "general_emergency",
+      "orthopedics"
+    ],
+    "beds": {
+      "icu": {
+        "total": 80,
+        "available": 3
+      },
+      "emergency": {
+        "total": 25,
+        "available": 25
+      },
+      "general": {
+        "total": 400,
+        "available": 25
+      },
+      "pediatric": {
+        "total": 30,
+        "available": 3
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": false,
+    "has_cath_lab": true,
+    "has_blood_bank": true
+  },
+  {
+    "id": "hosp_tha_jupiter",
+    "name": "Jupiter Hospital",
+    "lat": 19.2081,
+    "lng": 72.9696,
+    "specialties": [
+      "cardiology",
+      "trauma_surgery",
+      "neonatal_icu",
+      "general_emergency"
+    ],
+    "beds": {
+      "icu": {
+        "total": 70,
+        "available": 7
+      },
+      "emergency": {
+        "total": 30,
+        "available": 30
+      },
+      "general": {
+        "total": 200,
+        "available": 30
+      },
+      "pediatric": {
+        "total": 25,
+        "available": 8
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": true,
+    "has_cath_lab": true,
+    "has_blood_bank": true
+  },
+  {
+    "id": "hosp_pun_ruby",
+    "name": "Ruby Hall Clinic",
+    "lat": 18.5293,
+    "lng": 73.8797,
+    "specialties": [
+      "orthopedics",
+      "general_emergency",
+      "trauma_surgery"
+    ],
+    "beds": {
+      "icu": {
+        "total": 100,
+        "available": 12
+      },
+      "emergency": {
+        "total": 35,
+        "available": 35
+      },
+      "general": {
+        "total": 380,
+        "available": 40
+      },
+      "pediatric": {
+        "total": 35,
+        "available": 5
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": true,
+    "has_cath_lab": true,
+    "has_blood_bank": true
+  },
+  {
+    "id": "hosp_pun_sahyadri",
+    "name": "Sahyadri Hospital",
+    "lat": 18.5147,
+    "lng": 73.8344,
+    "specialties": [
+      "toxicology",
+      "general_emergency",
+      "neurology"
+    ],
+    "beds": {
+      "icu": {
+        "total": 40,
+        "available": 2
+      },
+      "emergency": {
+        "total": 15,
+        "available": 15
+      },
+      "general": {
+        "total": 220,
+        "available": 12
+      },
+      "pediatric": {
+        "total": 25,
+        "available": 3
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": false,
+    "has_cath_lab": false,
+    "has_blood_bank": true
+  },
+  {
+    "id": "hosp_nsk_apollo",
+    "name": "Apollo Hospital",
+    "lat": 19.9975,
+    "lng": 73.7898,
+    "specialties": [
+      "general_emergency",
+      "cardiology",
+      "pediatrics"
+    ],
+    "beds": {
+      "icu": {
+        "total": 50,
+        "available": 6
+      },
+      "emergency": {
+        "total": 20,
+        "available": 20
+      },
+      "general": {
+        "total": 150,
+        "available": 15
+      },
+      "pediatric": {
+        "total": 30,
+        "available": 5
+      }
+    },
+    "has_icu": true,
+    "has_trauma_center": false,
+    "has_cath_lab": true,
+    "has_blood_bank": true
+  }
+]
